@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Добро пожаловать в TicketBox!";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">🎟️ TicketBox</h1>
+        <p class="lead">Система бронирования и проверки билетов в кинотеатр</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🎬 Фильмы</h5>
+                    <p class="card-text">Просмотрите доступные фильмы и их описание</p>
+                    <a asp-controller="Movies" asp-action="Index" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🕒 Сеансы</h5>
+                    <p class="card-text">Актуальное расписание киносеансов</p>
+                    <a asp-controller="Sessions" asp-action="Index" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🏛️ Залы</h5>
+                    <p class="card-text">Управление и просмотр информации о залах</p>
+                    <a asp-controller="Halls" asp-action="Index" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">✅ Проверка билета</h5>
+                    <p class="card-text">Проверить действительность билета по коду</p>
+                    <a asp-controller="Tickets" asp-action="Index" class="btn btn-success">Проверить</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">👤 Войти</h5>
+                    <p class="card-text">Авторизация в системе (админ, кассир и др.)</p>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">Войти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TicketBox.Models.Session>
+@{
+    ViewData["Title"] = "Сеансы";
+    var now = DateTime.Now;
+    var activeSessions = Model.Where(s => s.StartTime > now).ToList();
+    var finishedSessions = Model.Where(s => s.StartTime <= now).ToList();
+}
+
+<h1>Сеансы</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary mb-4">Добавить сеанс</a>
+</p>
+
+@if (activeSessions.Any())
+{
+    <h2>Актуальные сеансы</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        @foreach (var item in activeSessions)
+        {
+            @* Карточка актуального сеанса *@
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@item.Movie.PosterUrl"
+                         class="card-img-top bg-light"
+                         alt="@item.Movie.Title"
+                         style="height: 300px; object-fit: contain; padding: 10px;" />
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@item.Movie.Title</h5>
+                        <p class="card-text mb-1"><strong>Зал:</strong> @item.Hall.Name</p>
+                        <p class="card-text mb-1"><strong>Время:</strong> @item.StartTime.ToString("g")</p>
+                        <p class="card-text mb-3"><strong>Цена:</strong> @item.Price сум</p>
+
+                        <div class="mt-auto">
+                            <a asp-action="Seats" asp-route-id="@item.Id" class="btn btn-success btn-sm">Места</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Редактировать</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@if (finishedSessions.Any())
+{
+    <h2>Завершённые сеансы</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in finishedSessions)
+        {
+            @* Карточка завершённого сеанса *@
+            <div class="col">
+                <div class="card h-100 shadow-sm border-secondary opacity-75">
+                    <img src="@item.Movie.PosterUrl"
+                         class="card-img-top bg-light"
+                         alt="@item.Movie.Title"
+                         style="height: 300px; object-fit: contain; padding: 10px;" />
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@item.Movie.Title</h5>
+                        <p class="card-text mb-1"><strong>Зал:</strong> @item.Hall.Name</p>
+                        <p class="card-text mb-1"><strong>Время:</strong> @item.StartTime.ToString("g")</p>
+                        <p class="card-text mb-3"><strong>Цена:</strong> @item.Price сум</p>
+
+                        @* Не показываем кнопки для завершённых *@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

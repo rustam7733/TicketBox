@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Проверка билета";
+}
+
+<h2>Проверка билета</h2>
+
+<form asp-action="Scan" method="post">
+    <div class="form-group">
+        <label for="code">Введите код билета</label>
+        <input type="text" name="code" id="code" class="form-control" required autofocus />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Пробить</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert @(ViewBag.Success ? "alert-success" : "alert-danger") mt-3">
+        @ViewBag.Message
+    </div>
+}
+
+<style>
+    form {
+        max-width: 400px;
+        margin-top: 20px;
+    }
+</style>

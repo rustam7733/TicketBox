@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Ошибка";
+    var message = ViewData["ErrorMessage"] as string;
+    var sessionId = ViewData["SessionId"];
+}
+
+<div class="text-center py-5">
+    <h2 class="text-danger mb-4">Произошла ошибка</h2>
+    <p class="fs-5">@message</p> <!-- ВАЖНО -->
+    @if (sessionId != null)
+    {
+        <a asp-controller="Sessions" asp-action="Seats" asp-route-id="@ViewBag.SessionId" class="btn btn-primary mt-4">OK</a>
+    }
+    else
+    {
+        <a asp-controller="Sessions" asp-action="Index" class="btn btn-secondary mt-4">Назад к сеансам</a>
+    }
+</div>

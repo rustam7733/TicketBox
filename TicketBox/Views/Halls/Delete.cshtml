@@ -1,0 +1,33 @@
+﻿@model TicketBox.Models.Hall
+
+@{
+    ViewData["Title"] = "Удаление зала";
+}
+
+<h2 class="mb-4">Удаление зала</h2>
+
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Вы уверены, что хотите удалить этот зал?</h4>
+    <p>Это действие необратимо.</p>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Название</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+            <dt class="col-sm-3">Рядов</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Rows)</dd>
+
+            <dt class="col-sm-3">Мест в ряду</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Columns)</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Отмена</a>
+</form>

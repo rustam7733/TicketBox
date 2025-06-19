@@ -1,0 +1,33 @@
+﻿@model TicketBox.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Добавление пользователя";
+}
+
+<h2 class="text-center text-white mb-4">Добавление пользователя</h2>
+
+<form asp-action="Create" method="post" class="mx-auto" style="max-width: 400px;">
+    <div class="mb-3">
+        <label class="form-label text-white">Имя пользователя</label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label text-white">Пароль</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label text-white">Роль</label>
+        <select asp-for="Role" class="form-select">
+            <option value="admin">admin</option>
+            <option value="cashier">cashier</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Создать</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

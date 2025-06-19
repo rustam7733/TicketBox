@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TicketBox.Models.UserWithRolesViewModel>
+@{
+    ViewData["Title"] = "Управление пользователями";
+}
+
+<h2 class="text-center text-white mb-4">Управление пользователями</h2>
+
+<div class="text-end mb-3">
+    <a asp-action="Create" class="btn btn-success">➕ Добавить пользователя</a>
+</div>
+
+<table class="table table-dark table-hover text-center">
+    <thead>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>Роли</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>
+                    @if (user.Roles != null && user.Roles.Any())
+                    {
+                        @string.Join(", ", user.Roles)
+                    }
+                    else
+                    {
+                        <span class="text-muted">Нет роли</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="Delete" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

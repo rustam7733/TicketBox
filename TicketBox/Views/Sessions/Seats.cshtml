@@ -1,0 +1,115 @@
+﻿@model TicketBox.Models.Session
+@{
+    ViewData["Title"] = "Выбор мест";
+}
+
+<h2>Выбор мест</h2>
+
+<div>
+    <p><strong>Фильм:</strong> @Model.Movie.Title</p>
+    <p><strong>Зал:</strong> @Model.Hall.Name</p>
+    <p><strong>Цена за билет:</strong> @Model.Price.ToString()</p>
+</div>
+
+<div class="seating-grid"
+     style="display: grid; grid-template-columns: repeat(@Model.Hall.Columns, 50px); gap: 5px; margin-top: 20px;">
+    @for (int row = 1; row <= Model.Hall.Rows; row++)
+    {
+        @for (int seatNum = 1; seatNum <= Model.Hall.Columns; seatNum++)
+        {
+            var ticket = Model.Tickets?.FirstOrDefault(t => t.Row == row && t.Number == seatNum);
+            string cssClass = ticket?.Status switch
+            {
+                TicketStatus.Sold => "seat sold",
+                TicketStatus.Reserved => "seat booked",
+                _ => "seat available"
+            };
+
+            <div class="seat @cssClass"
+                 data-row="@row"
+                 data-seat="@seatNum"
+                 style="width: 50px; height: 50px; border: 1px solid #ccc; text-align: center; line-height: 50px; cursor: pointer;">
+                @row-@seatNum
+            </div>
+        }
+    }
+</div>
+
+<form method="post" asp-controller="Tickets" asp-action="Purchase">
+    <input type="hidden" name="sessionId" value="@Model.Id" />
+    <input type="hidden" id="selectedSeats" name="selectedSeats" />
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-success">Купить</button>
+        <button type="submit" class="btn btn-warning" asp-controller="Tickets" asp-action="Reserve">Забронировать</button>
+    </div>
+</form>
+
+<style>
+    .seat {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        user-select: none;
+        color: black;
+    }
+
+        .seat.available {
+            background-color: forestgreen; /* Более яркий зеленый */
+        }
+
+        .seat.booked {
+            background-color: #ffd700; /* Более яркий желтый */
+        }
+
+        .seat.sold {
+            background-color: crimson; /* Более яркий розовый/красный */
+            cursor: not-allowed;
+            pointer-events: none;
+            color: #fff; /* Белый текст для лучшей читаемости на ярком фоне */
+        }
+
+        .seat.selected {
+            border: 3px solid blue;
+            /* Дополнительно можно добавить светлый фон */
+            /* background-color: #e0f2f7; */
+        }
+</style>
+
+@section Scripts {
+    <script>
+        const selected = new Set();
+        const seats = document.querySelectorAll('.seat.available');
+        const selectedSeatsInput = document.getElementById('selectedSeats');
+        const purchaseForm = document.querySelector('form');
+
+        seats.forEach(seat => {
+            seat.onclick = function () {
+                const row = this.dataset.row;
+                const seatNum = this.dataset.seat;
+                const key = `${row}_${seatNum}`;
+
+                if (selected.has(key)) {
+                    selected.delete(key);
+                    this.classList.remove('selected');
+                } else {
+                    selected.add(key);
+                    this.classList.add('selected');
+                }
+
+                // Преобразуем в формат "row,number;row,number"
+                selectedSeatsInput.value = Array.from(selected)
+                    .map(k => k.replace('_', ','))
+                    .join(';');
+            };
+        });
+
+        purchaseForm.addEventListener('submit', function (event) {
+            if (selectedSeatsInput.value.trim() === '') {
+                event.preventDefault();
+                alert('Пожалуйста, выберите хотя бы одно место.');
+            }
+        });
+    </script>
+}
+

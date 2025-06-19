@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TicketBox.Models.Movie>
+
+@{
+    ViewData["Title"] = "Управление фильмами";
+}
+
+<h2 class="text-center text-white mb-4">Управление фильмами</h2>
+
+<div class="text-end mb-3">
+    <a asp-action="Create" class="btn btn-success">➕ Добавить фильм</a>
+</div>
+
+<table class="table table-dark table-hover text-center">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Постер</th>
+            <th>Длительность (мин)</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.Description</td>
+                <td><img src="@movie.PosterUrl" alt="@movie.Title" style="max-width: 50px; max-height: 70px;"></td>
+                <td>@movie.DurationMinutes</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-primary btn-sm">Изменить</a>
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-info btn-sm">Подробнее</a>
+                    <form asp-action="Delete" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@movie.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

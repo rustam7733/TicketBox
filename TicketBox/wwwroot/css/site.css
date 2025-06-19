@@ -1,0 +1,87 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background: #09134f;
+    background: linear-gradient(154deg,rgba(9, 19, 79, 1) 0%, rgba(59, 15, 15, 1) 100%);
+    color: #f8f9fa; /* Белый или светло-серый цвет текста */
+}
+
+/* Переопределяем цвета для navbar и footer с темным фоном */
+.navbar, footer {
+    background-color: #1a1a1a; /* Темный фон для навигации и подвала */
+    color: #f8f9fa; /* Светлый текст в navbar и footer */
+}
+
+    .navbar a, .navbar-brand, .navbar-text {
+        color: #f8f9fa; /* Светлый текст для ссылок в navbar */
+    }
+
+        .navbar a:hover, .navbar-brand:hover {
+            color: #ffc107; /* Цвет ссылок при наведении */
+        }
+
+    footer a {
+        color: #ffc107; /* Светлая ссылка в footer */
+    }
+
+        footer a:hover {
+            color: #f8f9fa; /* При наведении на ссылки в footer */
+        }
+
+    .navbar .dropdown-menu {
+        background-color: #1a1a1a; /* Темный фон для выпадающего меню */
+        color: #f8f9fa; /* Светлый текст */
+    }
+
+        /* Цвет текста ссылок в выпадающем меню */
+        .navbar .dropdown-menu .dropdown-item {
+            color: #f8f9fa; /* Белый текст для элементов меню */
+        }
+
+            /* При наведении на ссылки в выпадающем меню */
+            .navbar .dropdown-menu .dropdown-item:hover {
+                background-color: #007bff; /* Цвет фона при наведении */
+                color: #ffffff; /* Белый текст при наведении */
+            }
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.card-img-top {
+    max-height: 300px;
+    object-fit: contain;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+.card-body h5 {
+    font-weight: 600;
+}
+
+.card-body .btn {
+    margin-right: 5px;
+}

@@ -1,0 +1,42 @@
+﻿@model TicketBox.Models.Hall
+
+@{
+    ViewData["Title"] = "Добавить зал";
+}
+
+<h2 class="mb-4">Добавление зала</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Название зала</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Rows" class="form-label">Количество рядов</label>
+                <input asp-for="Rows" class="form-control" type="number" min="1" />
+                <span asp-validation-for="Rows" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Columns" class="form-label">Количество мест в ряду</label>
+                <input asp-for="Columns" class="form-control" type="number" min="1" />
+                <span asp-validation-for="Columns" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Назад к списку</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
